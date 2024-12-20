@@ -18,10 +18,10 @@
 } */
 
 body {
-  margin: 0;
   display: flex;
+  margin: auto;
   min-width: 720px;
-  min-height: 100dvh;
+  min-height: 100vh;
 }
 
 ::-webkit-scrollbar {

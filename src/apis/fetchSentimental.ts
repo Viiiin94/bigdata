@@ -18,14 +18,14 @@ export const fetchSentiment = async (value: string) => {
     if (response.ok) {
       const data = await response.json();
 
-      const result: SentimentType = data.map(
+      const sentimentData: SentimentType = data.map(
         ([word, probability, weight]: SentimentType[]) => ({
           text: word,
           probability: probability,
           size: weight,
         })
       );
-      return result;
+      return { sentimentData };
     }
   } catch (error) {
     console.error(error);

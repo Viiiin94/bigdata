@@ -4,6 +4,7 @@ import Layout from "../layout/Layout";
 import GraphPage from "../app/GraphPage";
 import NewsPage from "../app/NewsPage";
 import WordDivision from "../app/WordDivision";
+import Test from "../app/test";
 
 const Router = () => {
   const routes = [
@@ -12,6 +13,10 @@ const Router = () => {
       children: [
         {
           path: "/",
+          element: <Test />,
+        },
+        {
+          path: "/related",
           element: <GraphPage />,
         },
         {
