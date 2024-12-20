@@ -4,7 +4,6 @@ import Layout from "../layout/Layout";
 import GraphPage from "../app/GraphPage";
 import NewsPage from "../app/NewsPage";
 import WordDivision from "../app/WordDivision";
-import OpenLayer from "../app/OpenLayer";
 
 const Router = () => {
   const routes = [
@@ -22,10 +21,6 @@ const Router = () => {
         {
           path: "/word-division",
           element: <WordDivision />,
-        },
-        {
-          path: "/ol-test",
-          element: <OpenLayer />,
         },
       ],
     },
