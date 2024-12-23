@@ -17,11 +17,12 @@
   -moz-osx-font-smoothing: grayscale;
 } */
 
-body {
+#root {
   display: flex;
-  margin: auto;
-  min-width: 720px;
-  min-height: 100vh;
+  width: 100vw;
+  height: 100vh;
+  padding: 2rem;
+  background-color: #e4eaf2;
 }
 
 ::-webkit-scrollbar {

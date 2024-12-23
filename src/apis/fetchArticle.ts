@@ -1,12 +1,11 @@
+/**
+ * NEWS Article
+ * 뉴스기사 API
+ */
 import type { NewsType } from "../utils/type";
 
 export const ARTICLE_URL = import.meta.env.VITE_API_NEWS_ARTICLE_URL;
 
-/**
- * NEWS Article
- * 뉴스기사 API
- *
- */
 export const fetchSearchArticle = async (value: string) => {
   const response = await fetch(ARTICLE_URL, {
     method: "POST",

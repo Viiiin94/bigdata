@@ -1,11 +1,10 @@
-import type { SentimentType } from "../utils/type";
-
-export const SENTIMENT_URL = import.meta.env.VITE_API_SENTIMENT_URL;
-
 /**
  * SENTIMENT DIVISION
  * 긍부정어 API
  */
+import type { SentimentType } from "../utils/type";
+
+export const SENTIMENT_URL = import.meta.env.VITE_API_SENTIMENT_URL;
 
 export const fetchSentiment = async (value: string) => {
   const response = await fetch(`${SENTIMENT_URL}/${value}`);

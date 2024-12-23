@@ -2,22 +2,36 @@ import { NavLink } from "react-router";
 import { GoGraph } from "react-icons/go";
 import { LuNewspaper } from "react-icons/lu";
 import { BsAlphabetUppercase } from "react-icons/bs";
-import SearchForm from "../components/Form/SearchForm";
+
+import useSearchKeyword from "../store/useSearchKeyword";
 
 const Header = () => {
+  const keyword = useSearchKeyword((state) => state.keyword);
+  const checkKeyword = keyword ? keyword : `""`;
+
   const navLists = [
-    { link: "/related", icon: <GoGraph size={40} /> },
-    { link: "/news", icon: <LuNewspaper size={40} /> },
-    { link: "/word-division", icon: <BsAlphabetUppercase size={40} /> },
+    {
+      link: `/related?keyword=${checkKeyword}`,
+      icon: <GoGraph size={40} />,
+      name: "언급량 분석",
+    },
+    { link: "/news", icon: <LuNewspaper size={40} />, name: "연관어 분석" },
+    {
+      link: `/word-division?keyword=${checkKeyword}`,
+      icon: <BsAlphabetUppercase size={40} />,
+      name: "긍 부정 분석",
+    },
   ];
   return (
-    <header className="flex justify-center place-items-center">
-      <nav className="flex my-4 justify-between gap-60">
-        <SearchForm />
-        <ul className="flex gap-8 place-items-center">
-          {navLists.map(({ link, icon }, index) => (
-            <li key={`${link} + ${index}`}>
-              <NavLink to={link}>{icon}</NavLink>
+    <header className="flex">
+      <nav className="">
+        <h1 className="text-5xl">파이웍스</h1>
+        <ul className="flex flex-col mt-8">
+          {navLists.map(({ link, icon, name }, index) => (
+            <li key={`${link} + ${index}`} className="px-4 mb-4">
+              <NavLink to={link} className="flex place-items-center gap-4">
+                {icon} {name}
+              </NavLink>
             </li>
           ))}
         </ul>

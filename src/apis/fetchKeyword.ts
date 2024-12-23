@@ -1,12 +1,11 @@
+/**
+ * GRAPH Keyword
+ * 그래프 시각화 API
+ */
 import { transformSearchData } from "../composables/transformData";
 import type { SearchType } from "../utils/type";
 
 export const GRAPH_URL = import.meta.env.VITE_API_GRAPH_URL;
-
-/**
- * GRAPH
- * 그래프 시각화 API
- */
 
 export const fetchSearchData = async (value: string) => {
   const response = await fetch(`${GRAPH_URL}/${value}`);
