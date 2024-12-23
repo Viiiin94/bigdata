@@ -1,8 +1,8 @@
 import { useState, ChangeEvent } from "react";
 
-import Container from "../components/Container/Container";
 import ArticleContainer from "../components/Container/ArticleContainer";
 import AsideContainer from "../components/Container/AsideContainer";
+import Container from "../components/Container/Container";
 
 import CalanderBox from "../components/Box/CalanderBox";
 import SocialNetworks from "../components/Box/SocialNetworks";
@@ -12,7 +12,7 @@ import SearchForm from "../components/Form/SearchForm";
 
 import { socialNetworks, calander } from "../utils/data";
 
-const MentionPage = () => {
+const SentimentPage = () => {
   const [getYear, setGetYear] = useState<string>(
     new Date().getFullYear().toString()
   );
@@ -55,11 +55,10 @@ const MentionPage = () => {
         : [...prev, article]
     );
   };
-
   return (
     <Container>
       <AsideContainer>
-        <h2 className="text-2xl font-bold mb-8">언급량 분석</h2>
+        <h2 className="text-2xl font-bold mb-8">긍•부정 분석</h2>
         <SearchForm />
         <div className="bg-[#E4EAF2] rounded-lg px-4 py-2 mb-4">
           <CalanderBox
@@ -79,30 +78,8 @@ const MentionPage = () => {
             toggleSns={toggleSns}
           />
         </div>
-        <div>
-          <div
-            className="w-full flex place-items-center p-4 mb-2 rounded-lg
-                        bg-gradient-to-br from-[#E589CA] to-[#EF855B]"
-          >
-            <span>언급량이 많은 채널</span>
-            <h3 className="text-4xl">
-              뉴스 <strong className="text-white">NEWS</strong>
-            </h3>
-          </div>
-          <div
-            className="w-full flex place-items-center p-4 mb-2 rounded-lg
-                        bg-gradient-to-br from-[#89B2F0] to-[#70DD80]"
-          >
-            <span>언급량이 가장 많은 날짜</span>
-            <h3 className="text-4xl">2024.12.20</h3>
-          </div>
-          <div
-            className="w-full flex place-items-center p-4 mb-2 rounded-lg
-                        bg-gradient-to-br from-[#D48CF2] to-[#F3C965]"
-          >
-            <span>총 언급량</span>
-            <h3 className="text-4xl">2,000</h3>
-          </div>
+        <div className="h-[232px] border box-border border-[#898989] mb-2">
+          그래프
         </div>
         <div>
           <ArticleBox
@@ -111,15 +88,14 @@ const MentionPage = () => {
           />
         </div>
       </AsideContainer>
-
       <ArticleContainer>
-        <h2 className="text-2xl font-bold mb-4">언급량 추이</h2>
+        <h2 className="text-2xl font-bold mb-4">긍•부정 워드 클라우드</h2>
         <div className="w-full h-[42%] bg-white rounded-lg mb-8"></div>
-        <h2 className="text-2xl font-bold mb-4">언급량</h2>
+        <h2 className="text-2xl font-bold mb-4">긍•부정 추이 분석</h2>
         <div className="w-full h-[42%] bg-white rounded-lg"></div>
       </ArticleContainer>
     </Container>
   );
 };
 
-export default MentionPage;
+export default SentimentPage;
