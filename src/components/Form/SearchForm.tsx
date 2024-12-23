@@ -1,5 +1,4 @@
 import { FormEvent, ChangeEvent } from "react";
-import { useNavigate, useLocation } from "react-router";
 
 import useSearchKeyword from "../../store/useSearchKeyword";
 
@@ -8,9 +7,6 @@ const SearchForm = () => {
   const setSearchKeyword = useSearchKeyword((state) => state.setKeyword);
   const fetchData = useSearchKeyword((state) => state.fetchData);
 
-  const navigate = useNavigate();
-  const location = useLocation();
-
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchKeyword(e.target.value);
   };
@@ -18,21 +14,17 @@ const SearchForm = () => {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     await fetchData();
-    if (location.pathname.includes("/word-division")) {
-      return navigate(`/word-division?keyword=${searchKeyword}`);
-    }
-    navigate(`/related?keyword=${searchKeyword}`);
   };
 
   return (
-    <form onSubmit={onSubmit} className="flex justify-center">
+    <form onSubmit={onSubmit} className="flex justify-center mb-4">
       <label
         htmlFor="search"
         className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
       >
         Search
       </label>
-      <div className="relative w-80">
+      <div className="relative w-full">
         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
           <svg
             className="w-4 h-4 text-gray-500 dark:text-gray-400"
