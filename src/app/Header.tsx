@@ -21,7 +21,7 @@ const Header = () => {
       icon: <BsAlphabetUppercase size={20} />,
       name: "긍•부정 분석",
     },
-    { link: "/news", icon: <LuNewspaper size={20} />, name: "요약&예측" },
+    { link: "/sum&pre", icon: <LuNewspaper size={20} />, name: "요약&예측" },
   ];
   return (
     <header className="flex w-[15%]">

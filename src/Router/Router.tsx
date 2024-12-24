@@ -4,11 +4,12 @@ import Layout from "../layout/Layout";
 
 // import GraphPage from "../app/GraphPage";
 // import WordDivision from "../app/WordDivision";
-import NewsPage from "../app/NewsPage";
+// import NewsPage from "../app/NewsPage";
 import Homepage from "../app/Homepage";
 import MentionPage from "../app/MentionPage";
 import RelatedPage from "../app/RelatedPage";
 import SentimentPage from "../app/SentimentPage";
+import SummaryPredictionPage from "../app/SummaryPredictionPage";
 
 const Router = () => {
   const routes = [
@@ -32,9 +33,13 @@ const Router = () => {
           element: <SentimentPage />,
         },
         {
-          path: "/news",
-          element: <NewsPage />,
+          path: "/sum&pre",
+          element: <SummaryPredictionPage />,
         },
+        // {
+        //   path: "/news",
+        //   element: <NewsPage />,
+        // },
         // {
         //   path: "/related1",
         //   element: <GraphPage />,
