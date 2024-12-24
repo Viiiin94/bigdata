@@ -45,6 +45,7 @@ const LineChart = ({ lineDataKey, lineDataValue }: LineChartProps) => {
   };
 
   const options: any = {
+    maintainAspectRatio: false, // 부모 컨테이너 크기를 기준으로 그래프 크기 조정
     scales: {
       x: {
         grid: {
@@ -55,18 +56,19 @@ const LineChart = ({ lineDataKey, lineDataValue }: LineChartProps) => {
         grid: {
           color: "transparent",
         },
-        // ticks: {
-        //   beginAtZero: true,
-        //   stepSize: 10,
-        // },
       },
     },
   };
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold">뉴스별 검색량</h1>
-      <div style={{ width: 600, height: 300 }}>
+    <div className="w-full h-full">
+      <div
+        style={{
+          width: "96%",
+          height: "99%",
+          margin: "auto",
+        }}
+      >
         <Line data={data} options={options} />
       </div>
     </div>

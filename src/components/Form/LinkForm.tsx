@@ -1,21 +1,20 @@
 import { FormEvent, ChangeEvent } from "react";
 
-import useSearchKeyword from "../../store/useSearchKeyword";
+import useSearchYoutube from "../../store/useSearchYoutube";
 
-const SearchForm = () => {
-  const searchKeyword = useSearchKeyword((state) => state.keyword);
-  const setSearchKeyword = useSearchKeyword((state) => state.setKeyword);
-  const fetchData = useSearchKeyword((state) => state.fetchData);
+const LinkForm = () => {
+  const searchLink = useSearchYoutube((state) => state.link);
+  const setSearchLink = useSearchYoutube((state) => state.setLink);
+  const fetchData = useSearchYoutube((state) => state.fetchData);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchKeyword(e.target.value);
+    setSearchLink(e.target.value);
   };
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     await fetchData();
   };
-
   return (
     <form onSubmit={onSubmit} className="flex justify-center mb-4">
       <label
@@ -45,7 +44,7 @@ const SearchForm = () => {
         <input
           type="search"
           id="search"
-          value={searchKeyword}
+          value={searchLink}
           onChange={onChange}
           className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300
                     rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 
@@ -67,4 +66,4 @@ const SearchForm = () => {
   );
 };
 
-export default SearchForm;
+export default LinkForm;

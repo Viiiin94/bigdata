@@ -36,18 +36,6 @@ const Router = () => {
           path: "/sum&pre",
           element: <SummaryPredictionPage />,
         },
-        // {
-        //   path: "/news",
-        //   element: <NewsPage />,
-        // },
-        // {
-        //   path: "/related1",
-        //   element: <GraphPage />,
-        // },
-        // {
-        //   path: "/word-division",
-        //   element: <WordDivision />,
-        // },
       ],
     },
   ];

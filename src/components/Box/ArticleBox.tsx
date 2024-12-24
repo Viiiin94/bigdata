@@ -46,9 +46,14 @@ const ArticleBox = ({ selectArticle, onChangeArticle }: ArticleProps) => {
       </div>
       <div>
         <ul className="flex flex-col overflow-y-auto h-[12.5rem] border-b">
-          <li className="w-full p-1 rounded-lg bg-[#E4EAF2] mb-2 px-2 text-base">
+          <li className="flex place-items-center w-full rounded-lg bg-[#E4EAF2] mb-2 py-1 px-2 text-base relative">
+            <img
+              src="http://www.google.com/s2/favicons?domain=https://www.nike.com/kr/t/%ED%82%AC%EC%83%B7-2-%EB%82%A8%EC%84%B1-%EC%8B%A0%EB%B0%9C-T0VRB81C/IF0671-700"
+              alt="favicon"
+              className="mr-2 h-fit min-w-4 inline-block"
+            />
             뉴스 기사 url 제목 API 1
-            <span className="float-right text-sm text-zinc-600">
+            <span className="text-sm text-zinc-600 absolute right-2">
               2024-12-21 00:00
             </span>
           </li>

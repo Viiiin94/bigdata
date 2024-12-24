@@ -50,29 +50,29 @@ const ForceGraph2D = ({ relatedWords }: { relatedWords: GraphData }) => {
     return { nodes, links };
   };
 
-  const toggleNode = (node: NodeType) => {
-    if (node.children) {
-      node._children = node.children;
-      node.children = null;
-    } else {
-      node.children = node._children || [];
-      node._children = null;
-    }
+  // const toggleNode = (node: NodeType) => {
+  //   if (node.children) {
+  //     node._children = node.children;
+  //     node.children = null;
+  //   } else {
+  //     node.children = node._children || [];
+  //     node._children = null;
+  //   }
 
-    const updatedData = { ...relatedWords };
-    const updateNode = (nodes: NodeType[]) => {
-      nodes.forEach((n) => {
-        if (n.id === node.id) {
-          n.children = node.children;
-          n._children = node._children;
-        }
-        if (n.children) updateNode(n.children);
-      });
-    };
-    updateNode(updatedData.nodes);
+  //   const updatedData = { ...relatedWords };
+  //   const updateNode = (nodes: NodeType[]) => {
+  //     nodes.forEach((n) => {
+  //       if (n.id === node.id) {
+  //         n.children = node.children;
+  //         n._children = node._children;
+  //       }
+  //       if (n.children) updateNode(n.children);
+  //     });
+  //   };
+  //   updateNode(updatedData.nodes);
 
-    setFilteredData(flattenData(updatedData));
-  };
+  //   setFilteredData(flattenData(updatedData));
+  // };
 
   useEffect(() => {
     setFilteredData(flattenData(relatedWords));
@@ -81,8 +81,9 @@ const ForceGraph2D = ({ relatedWords }: { relatedWords: GraphData }) => {
   useEffect(() => {
     if (!svgRef.current) return;
 
-    const width = 950;
-    const height = 600;
+    const svgContainer = svgRef.current.parentElement; // SVG의 부모 요소 크기 참조
+    const width = svgContainer?.clientWidth || 850; // 부모 요소의 넓이 (fallback: 950px)
+    const height = svgContainer?.clientHeight || 275; // 부모 요소의 높이 (fallback: 600px)
 
     const svg = d3
       .select(svgRef.current)
@@ -91,12 +92,21 @@ const ForceGraph2D = ({ relatedWords }: { relatedWords: GraphData }) => {
 
     const zoomG = svg.append("g");
 
+    const initialScale = 0.8;
+    const initialX = width / 2;
+    const initialY = height / 2;
+
     // Zoom 설정
     const zoom = d3
       .zoom<SVGSVGElement, any>()
       .scaleExtent([0.5, 5])
       .on("zoom", (event) => zoomG.attr("transform", event.transform));
     svg.call(zoom);
+
+    svg.call(
+      zoom.transform,
+      d3.zoomIdentity.translate(initialX, initialY).scale(initialScale)
+    );
 
     const simulation = d3
       .forceSimulation(filteredData.nodes)
@@ -123,7 +133,7 @@ const ForceGraph2D = ({ relatedWords }: { relatedWords: GraphData }) => {
           .radius((d: any) => d.radius + 1)
           .iterations(3)
       )
-      .force("center", d3.forceCenter(width / 2, height / 2));
+      .force("center", d3.forceCenter(0, 0));
 
     // 링크
     const link = zoomG
@@ -167,12 +177,12 @@ const ForceGraph2D = ({ relatedWords }: { relatedWords: GraphData }) => {
       .attr("fill", (d) =>
         d.group === 1 ? "#333" : d.group === 2 ? "#85a5f2" : "#62c796"
       )
-      .style("cursor", "pointer")
-      .on("click", (_, d) => {
-        if (d.group !== 3) {
-          toggleNode(d);
-        }
-      });
+      .style("cursor", "pointer");
+    // .on("click", (_, d) => {
+    //   if (d.group !== 3) {
+    //     toggleNode(d);
+    //   }
+    // });
 
     node
       .append("text")
@@ -180,12 +190,12 @@ const ForceGraph2D = ({ relatedWords }: { relatedWords: GraphData }) => {
       .attr("text-anchor", "middle")
       .style("cursor", "pointer")
       .attr("fill", "#fff")
-      .text((d) => d.id)
-      .on("click", (_, d) => {
-        if (d.group !== 3) {
-          toggleNode(d);
-        }
-      });
+      .text((d) => d.id);
+    // .on("click", (_, d) => {
+    //   if (d.group !== 3) {
+    //     toggleNode(d);
+    //   }
+    // });
 
     node.each(function (d) {
       const textElement = d3
@@ -213,16 +223,24 @@ const ForceGraph2D = ({ relatedWords }: { relatedWords: GraphData }) => {
 
       node.attr("transform", (d) => `translate(${d.x}, ${d.y})`);
     });
+
+    simulation.on("end", () => {
+      const transform = d3.zoomIdentity
+        .translate(initialX, initialY)
+        .scale(initialScale);
+
+      svg.call(zoom.transform, transform); // transform 상태 유지
+    });
   }, [filteredData]);
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold mb-4">키워드 연관어</h1>
+    <div className="w-full h-full">
       <svg
         ref={svgRef}
-        width="950"
-        height="600"
-        style={{ border: "1px solid black" }}
+        style={{
+          width: "100%",
+          height: "100%",
+        }}
       ></svg>
     </div>
   );

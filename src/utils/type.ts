@@ -95,3 +95,14 @@ export type SentimentType = {
   probability?: number;
   size: number;
 };
+
+export type YoutubeType = {
+  category_probs: {
+    [key: string]: number;
+  };
+  keywords: {
+    [key: string]: number;
+  };
+  subtitle_text: string;
+  summary: string;
+};

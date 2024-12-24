@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 
 import ArticleContainer from "../components/Container/ArticleContainer";
 import AsideContainer from "../components/Container/AsideContainer";
@@ -16,7 +16,7 @@ const SentimentPage = () => {
   const [getYear, setGetYear] = useState<string>(
     new Date().getFullYear().toString()
   );
-  const [selectMonth, setSelectMonth] = useState<string[]>([]);
+  const [selectMonth, setSelectMonth] = useState<string>("");
   const [selectSns, setSelectSns] = useState<string[]>([]);
   const [selectArticle, setSelectArticle] = useState<string>("news");
 
@@ -32,20 +32,8 @@ const SentimentPage = () => {
     setSelectArticle(e.target.value);
   };
 
-  const toggleMonth = (month: string) => {
-    setSelectMonth((prev) =>
-      prev.includes(month)
-        ? prev.filter((item) => item !== month)
-        : [...prev, month]
-    );
-  };
-
-  const toggleMonthAll = () => {
-    if (selectMonth.length === calander.length) {
-      setSelectMonth([]);
-    } else {
-      setSelectMonth(calander);
-    }
+  const onChangeMonth = (e: ChangeEvent<HTMLInputElement>) => {
+    setSelectMonth(e.target.value);
   };
 
   const toggleSns = (article: string) => {
@@ -55,6 +43,10 @@ const SentimentPage = () => {
         : [...prev, article]
     );
   };
+
+  useEffect(() => {
+    console.log(selectMonth);
+  }, [selectMonth]);
   return (
     <Container>
       <AsideContainer>
@@ -65,8 +57,7 @@ const SentimentPage = () => {
             decrementYear={decrementYear}
             incrementYear={incrementYear}
             getYear={getYear}
-            toggleMonth={toggleMonth}
-            toggleMonthAll={toggleMonthAll}
+            onChangeMonth={onChangeMonth}
             selectMonth={selectMonth}
             calander={calander}
           />

@@ -10,10 +10,9 @@ interface SentimentType {
 
 interface WordCloudProps {
   sentiment: SentimentType;
-  heading: string;
 }
 
-const WordCloud = ({ sentiment, heading }: WordCloudProps) => {
+const WordCloud = ({ sentiment }: WordCloudProps) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   const processedData: any = Object.values(sentiment)
@@ -75,7 +74,6 @@ const WordCloud = ({ sentiment, heading }: WordCloudProps) => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-4">{heading}의 긍/부정어</h1>
       <svg
         ref={svgRef}
         width="800"

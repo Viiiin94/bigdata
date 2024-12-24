@@ -1,12 +1,12 @@
+import { ChangeEvent } from "react";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
 interface CalanderBoxProps {
   decrementYear: () => void;
   incrementYear: () => void;
   getYear: string;
-  toggleMonth: (_: string) => void;
-  toggleMonthAll: () => void;
-  selectMonth: string[];
+  onChangeMonth: (_: ChangeEvent<HTMLInputElement>) => void;
+  selectMonth: string;
   calander: string[];
 }
 
@@ -14,8 +14,7 @@ const CalanderBox = ({
   decrementYear,
   incrementYear,
   getYear,
-  toggleMonth,
-  toggleMonthAll,
+  onChangeMonth,
   selectMonth,
   calander,
 }: CalanderBoxProps) => {
@@ -33,16 +32,6 @@ const CalanderBox = ({
           onClick={incrementYear}
           className="cursor-pointer"
         />
-        <button
-          onClick={toggleMonthAll}
-          className={`px-1 rounded absolute right-0 text-sm ${
-            selectMonth.length === calander.length
-              ? " text-[#fff] bg-zinc-950"
-              : " text-zinc-950 bg-[#fff]"
-          }`}
-        >
-          All
-        </button>
       </div>
       <div>
         <ul className="grid grid-cols-6">
@@ -51,7 +40,7 @@ const CalanderBox = ({
               <label
                 htmlFor={item}
                 className={`block cursor-pointer rounded-3xl ${
-                  selectMonth.includes(item)
+                  selectMonth === item
                     ? "bg-black text-white"
                     : "bg-inherit text-gray-600"
                 }`}
@@ -62,8 +51,9 @@ const CalanderBox = ({
                 type="checkbox"
                 id={item}
                 className="hidden"
-                checked={selectMonth.includes(item)}
-                onChange={() => toggleMonth(item)}
+                checked={selectMonth === item}
+                onChange={onChangeMonth}
+                value={item}
               />
             </li>
           ))}
